@@ -19,7 +19,7 @@ const createMap = (letters) => {
 	const ceilSqRt = Math.ceil(Math.sqrt(letters.length));
 
 	canvas.width = canvas.height = LETTER_BOUNDING_BOX * ceilSqRt;
-	context.font = `${LETTER_BOUNDING_BOX}px Times New Roman`;
+	context.font = `${LETTER_BOUNDING_BOX - 1}px Times New Roman`;
 	context.fillStyle = "#ffffff";
 	context.strokeStyle = "#ffffff";
 	// context.font = "35pt bold arial";

@@ -1,6 +1,6 @@
 const THREE = require('three');
 import { init as initScene, update as updateScene, scene } from './scene.js';
-import { init as initCamera, camera } from './camera.js';
+import { init as initCamera, camera, update as updateCamera } from './camera.js';
 import { init as initControls, update as updateControls, controls } from './controls.js';
 import { init as initInput } from './input-handler.js';
 import Stats from 'stats-js';
@@ -14,7 +14,7 @@ export const init = () => {
 	canvas = document.getElementsByClassName('canvas')[0];
 	setupRenderer();
 	initCamera();
-	initControls();
+	// initControls();
 	initScene();
 
 	stats = new Stats();
@@ -22,7 +22,7 @@ export const init = () => {
 	stats.domElement.style.position = 'absolute';
 	stats.domElement.style.left = '0px';
 	stats.domElement.style.top = '0px';
-	document.body.appendChild(stats.domElement);
+	// document.body.appendChild(stats.domElement);
 	// initInput();
 
 	currentCamera = camera;
@@ -42,16 +42,23 @@ const setupRenderer = () => {
 	});
 	renderer.setClearColor(0x000000);
 	renderer.setPixelRatio(window.devicePixelRatio);
-	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 }
 
 export const onResize = (w, h) => {
-	if (renderer) renderer.setSize(w, h);
+	if (canvas) canvas.width = null;
+	if (canvas) canvas.height = null;
+	if (canvas) canvas.style.width = null;
+	if (canvas) canvas.style.height = null;
+	setTimeout(() => {
+		if (renderer) renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+	}, 0);
 }
 
 const update = (delta) => {
 	updateScene(delta);
 	updateControls(delta);
+	updateCamera(delta);
 }
 
 const render = () => {
