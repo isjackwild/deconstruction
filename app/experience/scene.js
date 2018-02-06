@@ -17,8 +17,8 @@ export const init = () => {
 	boxMesh = new Mesh( boxGeometry, boxMaterial );
 	// scene.add( boxMesh );
 
-	textParticles = TextParticles(LOREM);
-	scene.add(textParticles.mesh);
+	// textParticles = TextParticles(LOREM);
+	// scene.add(textParticles.mesh);
 
 	const uniforms = {
       color1: {
@@ -47,7 +47,7 @@ export const init = () => {
 			float stretchedUV = clamp((vUv.y * 2.0) - 1.0, 0.0, 1.0); 
 			float control = (cos(stretchedUV * TWO_PI) + 1.0) * 0.5;
 			// float control = 1.0;
-			gl_FragColor = vec4(mix(color2, color1, vUv.y * 1.15), 1.0);
+			gl_FragColor = vec4(mix(color2, color1, vUv.y), 1.0);
 		}
     `;
 
@@ -71,10 +71,11 @@ export const init = () => {
 	);
 	skybox.material.fog = false;
 	scene.add(skybox);
+	document.querySelector('.texture').classList.add('texture--visible')
 };
 
 export const updateText = (newText) => {
-	scene.remove(textParticles.mesh);
+	if (textParticles) scene.remove(textParticles.mesh);
 	textParticles = undefined;
 	textParticles = TextParticles(newText);
 	scene.add(textParticles.mesh);

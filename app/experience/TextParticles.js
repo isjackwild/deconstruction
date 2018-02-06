@@ -232,9 +232,11 @@ const TextParticles = (text) => {
 		const renderTarget1 = new THREE.WebGLRenderTarget(INSTANCES, 2, {
 			minFilter: THREE.NearestFilter,
 			magFilter: THREE.NearestFilter,
+			wrapS: THREE.ClampToEdgeWrapping,
+			wrapT: THREE.ClampToEdgeWrapping,
 			format: THREE.RGBAFormat,
-			// type: ( /(iPad|iPhone|iPod)/g.test( navigator.userAgent ) ) ? THREE.HalfFloatType : THREE.FloatType,
-			type: THREE.FloatType,
+			type: window.mobile ? THREE.HalfFloatType : THREE.FloatType,
+			// type: THREE.FloatType,
 			depthBuffer: false,
 			stencilBuffer: false,
 			transparent: false,

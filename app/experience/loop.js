@@ -6,7 +6,7 @@ import { init as initInput } from './input-handler.js';
 import Stats from 'stats-js';
 
 let canvas;
-let raf, then, now, delta, stats;
+let raf, then, now, delta, stats, isAnimating;
 let currentCamera, currentScene;
 export let renderer;
 
@@ -14,7 +14,7 @@ export const init = () => {
 	canvas = document.getElementsByClassName('canvas')[0];
 	setupRenderer();
 	initCamera();
-	// initControls();
+	initControls();
 	initScene();
 
 	stats = new Stats();
@@ -25,10 +25,27 @@ export const init = () => {
 	// document.body.appendChild(stats.domElement);
 	// initInput();
 
+	window.addEventListener('focus', onFocus);
+	window.addEventListener('blur', onBlur);
+
 	currentCamera = camera;
 	currentScene = scene;
 	now = new Date().getTime();
-	animate();
+	if (!isAnimating) animate();
+}
+
+const onFocus = () => {
+	delta = 1;
+	then = null;
+	now = new Date().getTime();
+	if (!isAnimating) animate();
+}
+
+const onBlur = () => {
+	cancelAnimationFrame(raf);
+	isAnimating = false;
+	then = null;
+	delta = 1;
 }
 
 export const kill = () => {
@@ -66,6 +83,7 @@ const render = () => {
 }
 
 const animate = () => {
+	isAnimating = true;
 	stats.begin();
 	then = now ? now : null;
 	now = new Date().getTime();

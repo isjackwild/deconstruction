@@ -6,12 +6,12 @@ import { camera } from './camera.js';
 let controls;
 
 export const init = () => {
-	controls = new THREE.OrbitControls(camera);
-	controls.target.set(
-		camera.position.x,
-		camera.position.y,
-		0,
-	);
+	// controls = new THREE.OrbitControls(camera);
+	// controls.target.set(
+	// 	camera.position.x,
+	// 	camera.position.y,
+	// 	0,
+	// );
 	window.addEventListener('deviceorientation', setOrientationControls, true);
 }
 

@@ -1,5 +1,6 @@
 * {
 	box-sizing: border-box;
+	-webkit-text-size-adjust: 100%;
 }
 
 body, html {
@@ -9,8 +10,12 @@ body, html {
 	height: 100%;
 	overflow: hidden;
 	background: #ddd;
+	position: fixed;
 }
+
+
 $border: 60px;
+$border--mobile: 20px;
 .canvas {
 	position: absolute;
 	top: $border;
@@ -32,11 +37,27 @@ $border: 60px;
 	background-image: url('/assets/images/noise-texture.png');
 	background-size: 150px 150px;
 	opacity: 0.5;
+	display: none;
+}
+
+.texture--visible {
+	display: block;
+}
+
+
+@media screen and (max-width: 768px) {
+	.canvas, .texture {
+		width: calc(100% - #{$border--mobile * 2});
+		height: calc(100% - #{$border--mobile * 2});
+		top: $border--mobile;
+		left: $border--mobile;
+	}
 }
 
 .search {
 	position: absolute;
-	display: inline-block;
+	display: inline-flex;
+	flex-direction: row;
 	margin: auto;
 	top: 50%;
 	left: 50%;
@@ -50,27 +71,52 @@ $border: 60px;
 	height: 40px;
 	overflow: hidden;
 	border: 1px solid #eee;
-	padding-left: 30px;
-	padding-right: 8px;
+	align-items: center;
+	width: 400px;
+	max-width: 80%;
 	// box-shadow: 0px 0px 3px 0px rgba(#822e4b, 0.5);
 }
 
-.search__text {
-	outline: none;
-	border: none;
-	width: 300px;
-	font-size: 15px;
-	display: inline-block;
-	vertical-align: middle;
-	margin: 0;
-	background: transparent;
-	color: #fff;
+.search h1 {
+	outline: 0;
 	-webkit-font-smoothing: antialiased;
 	line-height: 0.9em;
 	text-align: center;
 	font-family: 'Raleway', sans-serif;
 	font-weight: 400;
 	letter-spacing: 0.06em;
+	font-size: 15px;
+	width: calc(100% - 30px);
+	flex-grow: 1;
+	margin: 0;
+	padding-left: 20px;
+	padding-right: 5px;
+	white-space: nowrap;
+}
+
+body:not(.mobile) .search--yet-to-interact:hover {
+	.search__text {
+		opacity: 0;
+	}
+
+	.search__hint {
+		opacity: 1;
+	}
+}
+
+.search__text {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0;
+	color: #fff;
+	// background: transparent;
+}
+
+.search__hint {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+	color: rgba(#fff, 0.66);
 }
 
 .search__submit {
@@ -86,6 +132,8 @@ $border: 60px;
 	padding: 0;
 	background: transparent;
 	cursor: pointer;
+	padding-right: 10px;
+	flex-shrink: 0;
 }
 
 .search__submit img {
@@ -104,6 +152,16 @@ footer {
 	text-align: center;
 	width: 100%;
 	padding: 0 40px 0 40px;
+}
+
+@media screen and (max-width: 768px) {
+	footer {
+		bottom: 28px;
+		max-width: 90%;
+		margin: auto;
+		left: 0;
+		right: 0;
+	}
 }
 
 a {
