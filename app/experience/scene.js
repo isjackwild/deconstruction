@@ -20,14 +20,25 @@ export const init = () => {
 	// textParticles = TextParticles(LOREM);
 	// scene.add(textParticles.mesh);
 
-	const uniforms = {
+	// const uniforms = {
+ //      color1: {
+ //        type: "c",
+ //        value: new Color(0xd41758),
+ //      },
+ //      color2: {
+ //        type: "c",
+ //        value: new Color(0x19f1bf),
+ //        // value: new Color(0xbe646d),
+ //      },
+ //    };
+    const uniforms = {
       color1: {
         type: "c",
         value: new Color(0xd41758),
       },
       color2: {
         type: "c",
-        value: new Color(0xa6be6d),
+        value: new Color(0x192738),
         // value: new Color(0xbe646d),
       },
     };

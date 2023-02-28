@@ -7,7 +7,7 @@ const targetRotation = {
 }
 
 const onMouseMove = ({ clientX, clientY }) => {
-	targetRotation.y = 1 - ((clientX / window.innerWidth) - 0.5) * (Math.PI * 0.5);
+	targetRotation.y = 1 - ((clientX / window.innerWidth) - 0.5) * (Math.PI * 0.66);
 	targetRotation.x = 1 - ((clientY / window.innerHeight) - 0.5) * (Math.PI * 0.5);
 };
 
